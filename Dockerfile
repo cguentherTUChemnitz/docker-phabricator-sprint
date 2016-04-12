@@ -1,0 +1,16 @@
+FROM hachque/phabricator
+
+# Install Sprint extension
+RUN git clone https://github.com/wikimedia/phabricator-extensions-Sprint.git /srv/phabricator/phabricator-extensions-Sprint
+
+WORKDIR /srv/phabricator/phabricator/bin
+RUN ./config set maniphest.points '{"enabled" : true}'
+RUN ./config set load-libraries '{"sprint":"/srv/phabricator/phabricator-extensions-Sprint/src"}'
+
+# enforce HTTPS detection (for installation behind reverse proxy that adds/removes HTTPS)
+WORKDIR /srv/phabricator/phabricator/support
+RUN echo "<?php\n$_SERVER['https']=true;" > preamble.php
+RUN chmod a+rx preamble.php
+
+WORKDIR /
+CMD ["/init"]
