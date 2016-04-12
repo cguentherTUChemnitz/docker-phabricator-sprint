@@ -1,2 +1,2 @@
 # docker-phabricator-sprint
-docker image for phabricator with preinstalled sprint extension
+docker image based on hachque/phabricator with additional preinstalled sprint extension
