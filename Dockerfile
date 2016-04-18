@@ -10,13 +10,20 @@ RUN ./config set load-libraries '{"sprint":"/srv/phabricator/phabricator-extensi
 
 #disable mysql storage engine for file storage
 RUN ./config set storage.mysql-engine.max-size 0
+
 #save files in /srv/files using local file storage engine
-RUN mkdir /srv/files
+RUN mkdir -p /srv/files
 #use uid and gid for git:wwwgrp-phabricator
 RUN chown 2000:2000 /srv/files
 RUN ./config set storage.local-disk.path /srv/files
 
+#create volume and configure local repository path
+RUN mkdir -p /srv/repo
+RUN chown 2000:2000 /srv/repo
+RUN ./config set repository.default-local-path /srv/repo
+
 VOLUME /srv/files
+VOLUME /srv/repo
 
 # enforce HTTPS detection (for installation behind reverse proxy that adds/removes HTTPS)
 WORKDIR /srv/phabricator/phabricator/support
