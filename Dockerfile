@@ -1,4 +1,4 @@
-FROM alrouen/phabricator:1.0
+FROM alrouen/docker-phabricator:1.0
 ENV REFRESHED_AT 2016_04_18
 
 # Install Sprint extension
