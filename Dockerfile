@@ -1,5 +1,5 @@
-FROM hachque/phabricator
-ENV REFRESHED_AT 2016_04_12
+FROM alrouen/phabricator:1.0
+ENV REFRESHED_AT 2016_04_18
 
 # Install Sprint extension
 RUN git clone https://github.com/wikimedia/phabricator-extensions-Sprint.git /srv/phabricator/phabricator-extensions-Sprint
