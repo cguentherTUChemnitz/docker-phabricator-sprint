@@ -27,7 +27,9 @@ VOLUME /srv/repo
 
 # enforce HTTPS detection (for installation behind reverse proxy that adds/removes HTTPS)
 WORKDIR /srv/phabricator/phabricator/support
-RUN echo "<?php\n$_SERVER['https']=true;" > preamble.php
+RUN echo "<?php" > preamble.php
+RUN echo "\$_SERVER['https']=true;" >> preamble.php
+
 RUN chmod a+rx preamble.php
 
 WORKDIR /
