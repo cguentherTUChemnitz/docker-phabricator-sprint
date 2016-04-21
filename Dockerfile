@@ -29,8 +29,8 @@ RUN echo "\$_SERVER['https']=true;" >> preamble.php
 RUN chown 2000:2000 preamble.php
 
 # prepare notification support
-mkdir -p /var/tmp/aphlict/pid
-chown 2000:2000 /var/tmp/aphlict/pid 
+RUN mkdir -p /var/tmp/aphlict/pid
+RUN chown 2000:2000 /var/tmp/aphlict/pid 
 
 RUN chmod a+rx preamble.php
 
