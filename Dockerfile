@@ -22,15 +22,20 @@ RUN mkdir -p /srv/repo
 RUN chown 2000:2000 /srv/repo
 RUN ./config set repository.default-local-path /srv/repo
 
-VOLUME /srv/files
-VOLUME /srv/repo
-
 # enforce HTTPS detection (for installation behind reverse proxy that adds/removes HTTPS)
 WORKDIR /srv/phabricator/phabricator/support
 RUN echo "<?php" > preamble.php
 RUN echo "\$_SERVER['https']=true;" >> preamble.php
+RUN chown 2000:2000 preamble.php
+
+# prepare notification support
+mkdir -p /var/tmp/aphlict/pid
+chown 2000:2000 /var/tmp/aphlict/pid 
 
 RUN chmod a+rx preamble.php
+
+VOLUME /srv/files
+VOLUME /srv/repo
 
 WORKDIR /
 CMD ["/init"]
